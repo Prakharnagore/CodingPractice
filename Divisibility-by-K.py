@@ -83,3 +83,49 @@ for i in range(test_cases):
     output.append(solve(arr, length, K))
 
 print(*output, sep="\n")
+
+
+// Javascript method dont know if correct on not
+// Js Function to find minOperation to make evert array divisible by k
+
+function findNearest(number, k) {
+  let nextNearest = number;
+  let prevNearest = number;
+  while (true) {
+    if (nextNearest % k === 0) {
+      return nextNearest;
+    }
+    if (prevNearest % k === 0) {
+      return prevNearest;
+    }
+    nextNearest += 1;
+    prevNearest -= 1;
+  }
+}
+function divisibilityByK(arr, k) {
+  let countMinOpertaion = 0;
+  let i = 0;
+  let j = 0;
+  while (j < arr.length) {
+    let count = 0;
+    if (arr[i] % k === 0) {
+      i++;
+      j++;
+    } else {
+      let nearest = findNearest(arr[i], k);
+      if (nearest < arr[i]) {
+        arr[i] -= 1;
+        countMinOpertaion++;
+      } else {
+        arr[i] += 1;
+        countMinOpertaion++;
+      }
+    }
+  }
+  return countMinOpertaion;
+}
+
+// prevNearest;
+console.log(divisibilityByK([1], 3));
+// nextNearest;
+// console.log(findNearest(5, 3));
