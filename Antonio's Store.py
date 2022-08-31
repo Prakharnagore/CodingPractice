@@ -45,3 +45,31 @@ n, m = [int(x) for x in input().split()]
 a = list(map(int, input().split()))
 
 print(solve(a, n, m))
+
+
+// unoptimized
+function minCapacity(arr, n, m) {
+  let empty = 0;
+  let maxValue = Math.max(...arr);
+
+  for (let i = 0; i < arr.length; i++) {
+    empty += maxValue - arr[i];
+  }
+  if (empty > m) {
+    return maxValue;
+  } else {
+    return Math.floor(maxValue + (m - empty) / n) + 1;
+  }
+}
+console.log(minCapacity([1, 2, 3, 4, 5, 6, 7, 8, 9], 9, 100));
+
+// Optimized
+function minCapacity(arr, n, m) {
+  let sumOfArr = arr.reduce((a, b) => a + b, 0);
+  let empty = Math.max(...arr) * n - sumOfArr;
+  if (empty > m) {
+    return Math.max(...arr);
+  }
+  return Math.floor(Math.max(...arr) + (m - empty) / n + 1);
+}
+console.log(minCapacity([1, 2, 3, 5, 6, 7, 8, 9], 9, 4));
